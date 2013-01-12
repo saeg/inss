@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<project name="build-test" basedir="../../../">
+	<import file="../../build/commons/build.xml" />
+
+	<taskdef resource="testngtasks" classpath="${dir.libs}/testng-5.14.jar" />
+
+	<fileset id="set.lib.findbugs" dir="${dir.libs}/findbugs">
+		<include name="findbugs-ant.jar" />
+	</fileset>
+
+	<fileset id="set.lib.pmd" dir="${dir.libs}/pmd">
+		<include name="pmd-4.2.5.jar" />
+	</fileset>
+
+	<fileset id="set.lib.emma" dir="${dir.libs}/emma">
+		<include name="emma.jar" />
+		<include name="emma_ant.jar" />
+	</fileset>
+
+	<fileset id="set.lib.cobertura" dir="${dir.libs}/cobertura">
+		<include name="*.jar" />
+	</fileset>
+
+	<target name="emma.instrumentation">
+		<taskdef resource="emma_ant.properties">
+			<classpath>
+				<fileset refid="set.lib.emma" />
+			</classpath>
+		</taskdef>
+
+		<mkdir dir="${instr.dir}" />
+		<delete file="${output.dir}/metadata.emma" />
+		<emma>
+			<instr instrpath="${bin.dir}" destdir="${instr.dir}" metadatafile="${output.dir}/metadata.emma" mode="copy" />
+		</emma>
+		<copy todir="${instr.dir}" overwrite="false">
+			<fileset dir="${bin.dir}" />
+		</copy>
+	</target>
+
+	<target name="emma-report">
+		<taskdef resource="emma_ant.properties">
+			<classpath>
+				<fileset refid="set.lib.emma" />
+			</classpath>
+		</taskdef>
+
+		<emma>
+			<report sourcepath="${source.dir}" depth="method">
+				<fileset dir="${output.dir}" >
+					<include name="*.emma" />
+				</fileset>
+				<html outfile="${output.dir}/emma.html" />
+				<xml outfile="${output.dir}/emma.xml" />
+			</report>
+		</emma>
+	</target>
+
+	<target name="cobertura.instrumentation">
+		<taskdef resource="tasks.properties">
+			<classpath>
+				<fileset refid="set.lib.cobertura" />
+			</classpath>
+		</taskdef>
+
+		<mkdir dir="${instr.dir}" />
+		<delete file="${output.dir}/cobertura.ser" />
+		<cobertura-instrument todir="${instr.dir}" datafile="${output.dir}/cobertura.ser">
+			<fileset dir="${bin.dir}">
+				<include name="**/*.class" />
+			</fileset>
+		</cobertura-instrument>
+		<copy todir="${instr.dir}" overwrite="false">
+			<fileset dir="${bin.dir}" />
+		</copy>
+	</target>
+
+	<target name="cobertura-report">
+		<taskdef resource="tasks.properties">
+			<classpath>
+				<fileset refid="set.lib.cobertura" />
+			</classpath>
+		</taskdef>
+
+		<!-- <cobertura-report format="html" destdir="${output.dir}" srcdir="${source.dir}" datafile="${output.dir}/cobertura.ser" />-->
+		<cobertura-report format="xml" destdir="${output.dir}" srcdir="${source.dir}" datafile="${output.dir}/cobertura.ser" />
+	</target>
+
+	<target name="pmd-report">
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask">
+			<classpath>
+				<fileset refid="set.lib.pmd" />
+			</classpath>
+		</taskdef>
+
+		<pmd shortFilenames="true">
+			<formatter type="xml" toFile="${output.dir}/pmd-report.xml" linkPrefix="http://pmd.sourceforge.net/xref/" />
+			<ruleset>${project.dir}/conf/pmd.xml</ruleset>
+			<fileset dir="${source.dir}">
+				<include name="**/*.java" />
+			</fileset>
+		</pmd>
+	</target>
+
+	<target name="findbugs-report">
+		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask">
+			<classpath>
+				<fileset refid="set.lib.findbugs" />
+			</classpath>
+		</taskdef>
+
+		<findbugs home="${dir.libs}/findbugs" output="xml" outputFile="${output.dir}/fb-report.xml" excludefilter="${project.dir}/conf/findbugs-exclude.xml" jvmargs="-Xms256m -Xmx384m">
+			<classpath>
+				<filelist files="${dir.libs}/findbugs/*.jar" />
+			</classpath>
+			<class location="${bin.dir}" />
+		</findbugs>
+	</target>
+
+</project>

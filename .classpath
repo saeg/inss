@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/opal"/>
+	<classpathentry kind="src" path="src/inss"/>
+	<classpathentry kind="src" path="src/opal-testing"/>
+	<classpathentry kind="src" path="src/inss-testing"/>
+	<classpathentry kind="src" path="src/commons"/>
+	<classpathentry kind="src" path="src/commons-testing"/>
+	<classpathentry kind="src" path="src/j2gxl"/>
+	<classpathentry kind="src" path="src/j2gxl-testing"/>
+	<classpathentry kind="src" path="projects/inss/doc/example/src"/>
+	<classpathentry kind="src" path="projects/inss/doc/example/test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="libs/gxl.jar"/>
+	<classpathentry kind="lib" path="libs/testng-5.14.jar"/>
+	<classpathentry kind="lib" path="libs/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="libs/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="libs/whirlycache/whirlycache-1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/whirlycache/commons-logging.jar"/>
+	<classpathentry kind="lib" path="libs/whirlycache/concurrent-1.3.4.jar"/>
+	<classpathentry kind="lib" path="libs/whirlycache/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="libs/jabuti/bcel-5.2.jar"/>
+	<classpathentry kind="lib" path="libs/jabuti/jabuti.jar"/>
+	<classpathentry kind="lib" path="libs/csv/gj-csv-1.0.jar"/>
+	<classpathentry kind="lib" path="libs/dom4j/dom4j-1.6.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

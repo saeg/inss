@@ -1,0 +1,195 @@
+<project name="InSS" basedir="." default="dist-inss">
+	<description>InSS build file</description>
+
+	<import file="projects/build/commons/build.xml" />
+	<import file="projects/build/testing/build.xml" />
+	<import file="commons-build.xml" />
+	<import file="opal-build.xml" />
+
+	<property name="dir.inss.build" value="${dir.build}/inss" />
+	<property name="dir.inss.src" value="${dir.src}/inss" />
+	<property name="dir.inss.dest" value="${dir.inss.build}/classes"/>
+	<property name="dir.inss.jar" value="${dir.inss.build}/jar"/>
+	<property name="inss.jar.file" value="inss.jar"/>
+
+	<!-- jar's inss -->
+	<fileset id="set.lib.inss" dir="${dir.libs}">
+		<include name="log4j-1.2.16.jar" />
+		<include name="jabuti/jabuti.jar"/>
+		<include name="jabuti/bcel-5.2.jar"/>
+		<include name="commons-cli-1.2.jar"/>
+		<include name="whirlycache/whirlycache-1.0.1.jar" />
+		<include name="csv/gj-csv-1.0.jar" />
+		<include name="dom4j/dom4j-1.6.1.jar" />
+	</fileset>
+
+	<path id="path.compile.inss">
+		<fileset refid="set.lib.inss" />
+	</path>
+
+	<target name="clean-inss" description="Clean InSS build dir">
+		<delete dir="${dir.inss.build}"/>
+	</target>
+
+	<target name="compile-inss" depends="compile-commons, compile-opal" description="Compile InSS">
+		<mkdir dir="${dir.inss.dest}" />
+		<!-- InSS -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.inss.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.inss.src}" />
+			<classpath refid="path.compile.inss" />
+			<classpath path="${dir.commons.dest}" />
+			<classpath path="${dir.opal.dest}" />
+		</javac>
+		<copy file="${dir.inss.src}/whirlycache.xml" todir="${dir.inss.dest}" overwrite="true" />
+		<copy file="${dir.inss.src}/log4j.properties" todir="${dir.inss.dest}" overwrite="true" />
+		<copy file="${dir.inss.src}/template.properties" todir="${dir.inss.dest}" overwrite="true" />
+	</target>
+
+	<target name="jar-inss" depends="compile-inss">
+		<mkdir dir="${dir.inss.jar}"/>
+		<jar destfile="${dir.inss.jar}/${inss.jar.file}" basedir="${dir.inss.dest}" />
+	</target>
+
+	<target name="dist-inss" depends="clean-inss, jar-inss" description="Build a jar file for InSS"/>
+
+	<!-- tests targets -->
+
+	<property name="dir.inss-testing.project" value="${dir.projects}/inss-testing" />
+	<property name="dir.inss-testing.output" value="${dir.inss-testing.project}/output" />
+	<property name="dir.inss-testing.src" value="${dir.src}/inss-testing" />
+	<property name="dir.inss-testing.dest" value="${dir.inss.build}/classes-test" />
+
+	<!-- jar's inss testing -->
+	<fileset id="set.lib.inss-testing" dir="${dir.libs}">
+		<include name="gxl.jar" />
+		<include name="log4j-1.2.16.jar"/>
+		<include name="testng-5.14.jar" />
+		<include name="whirlycache/whirlycache-1.0.1.jar" />
+		<include name="whirlycache/commons-collections-3.1.jar" />
+		<include name="whirlycache/commons-logging.jar" />
+		<include name="whirlycache/concurrent-1.3.4.jar" />
+	</fileset>
+
+	<path id="path.compile.inss-testing">
+		<fileset refid="set.lib.inss-testing" />
+	</path>
+
+	<target name="clean-inss-output">
+		<echo message="clean inss output" />
+		<available file="${dir.inss-testing.output}" property="available.dir" />
+		<antcall target="clean-dir">
+			<param name="dir" value="${dir.inss-testing.output}" />
+		</antcall>
+		<echo message="clean inss output finished" />
+	</target>
+
+	<target name="compile-inss-tests" depends="compile-inss, compile-opal-tests" description="Compile InSS Tests">
+		<mkdir dir="${dir.inss-testing.dest}" />
+		<!-- InSS Tests -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.inss-testing.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.inss-testing.src}" />
+			<classpath refid="path.compile.inss-testing" />
+			<classpath path="${dir.inss.dest}" />
+			<classpath path="${dir.opal.dest}" />
+			<classpath path="${dir.opal-testing.dest}" />
+		</javac>
+	</target>
+
+	<target name="inss-tests" depends="compile-inss-tests" description="Run InSS Tests">
+		<testng outputDir="${dir.inss-testing.output}" haltOnfailure="false" workingdir=".">
+			<classpath>
+				<path path="${dir.inss.dest}"/>
+				<path path="${dir.inss-testing.dest}"/>
+				<path refid="path.compile.inss-testing" />
+				<path path="${dir.commons.dest}"/>
+				<path path="${dir.opal.dest}"/>
+				<path path="${dir.j2gxl.dest}"/>
+				<path path="${dir.opal-testing.dest}" />
+			</classpath>
+			<xmlfileset dir="${dir.inss-testing.src}/br/usp/each/inss" includes="inss-testng.xml" />
+		</testng>
+	</target>
+
+	<target name="inss.hudson" depends="compile-inss-tests">
+		<antcall target="clean-inss-output" />
+		<antcall target="inss-tests" />
+
+		<antcall target="pmd-report">
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+			<param name="project.dir" value="${dir.inss-testing.project}" />
+			<param name="source.dir" value="${dir.inss.src}" />
+		</antcall>
+
+		<antcall target="findbugs-report">
+			<param name="bin.dir" value="${dir.inss.dest}" />
+			<param name="project.dir" value="${dir.inss-testing.project}" />
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+		</antcall>
+	</target>
+
+	<!-- Coverage -->
+
+	<property name="dir.inss.instr.emma" value="${dir.inss.build}/instr-classes-emma" />
+	
+	<target name="inss.emma.report" depends="compile-inss, compile-inss-tests">
+		<antcall target="emma.instrumentation">
+			<param name="instr.dir" value="${dir.inss.instr.emma}" />
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+			<param name="bin.dir" value="${dir.inss.dest}" />
+		</antcall>
+
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.inss-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.emma" />
+				<path path="${dir.inss.instr.emma}" />
+				<path path="${dir.inss-testing.dest}" />
+				<path refid="path.compile.inss-testing" />
+				<path path="${dir.commons.dest}"/>
+				<path path="${dir.opal.dest}"/>
+				<path path="${dir.j2gxl.dest}"/>
+				<path path="${dir.opal-testing.dest}" />
+			</classpath>
+			<jvmarg value="-Demma.coverage.out.file=${dir.inss-testing.output}/metadata.emma" />
+			<jvmarg value="-Demma.coverage.out.merge=true" />
+			<xmlfileset dir="${dir.inss-testing.src}/br/usp/each/inss" includes="inss-testng.xml" />
+		</testng>
+
+		<antcall target="emma-report">
+			<param name="source.dir" value="${dir.inss.src}" />
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+		</antcall>
+	</target>
+	
+	<property name="dir.inss.instr.cobertura" value="${dir.inss.build}/instr-classes-cobertura" />
+
+	<target name="inss.cobertura.report" depends="compile-inss, compile-inss-tests">
+		<antcall target="cobertura.instrumentation">
+			<param name="instr.dir" value="${dir.inss.instr.cobertura}" />
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+			<param name="bin.dir" value="${dir.inss.dest}" />
+		</antcall>
+
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.inss-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.cobertura" />
+				<path path="${dir.inss.instr.cobertura}" />
+				<path path="${dir.inss-testing.dest}" />
+				<path refid="path.compile.inss-testing" />
+				<path path="${dir.commons.dest}" />
+				<path path="${dir.opal.dest}" />
+				<path path="${dir.j2gxl.dest}" />
+				<path path="${dir.opal-testing.dest}" />
+			</classpath>
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${dir.inss-testing.output}/cobertura.ser" />
+			<xmlfileset dir="${dir.inss-testing.src}/br/usp/each/inss" includes="inss-testng.xml" />
+		</testng>
+
+		<antcall target="cobertura-report">
+			<param name="source.dir" value="${dir.inss.src}" />
+			<param name="output.dir" value="${dir.inss-testing.output}" />
+		</antcall>
+	</target>
+
+</project>

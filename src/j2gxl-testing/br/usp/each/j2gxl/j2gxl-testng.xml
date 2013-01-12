@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="J2GXL unit Test" verbose="2">
+	<test name="J2GXL">
+		<packages>
+			<package name="br.usp.each.j2gxl" />
+		</packages>
+	</test>
+</suite>

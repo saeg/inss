@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+	<graph edgeids="true" edgemode="directed" hypergraph="false" id="max">
+		<type xlink:href="graphSubmission.gxl#graphSubmission" xlink:type="simple"/>
+		<node id="dua_0">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>32</int>
+			</attr>
+		</node>
+		<node id="dua_1">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>23</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>19</int>
+			</attr>
+		</node>
+		<node id="dua_2">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>19</int>
+			</attr>
+		</node>
+		<node id="dua_3">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>19</int>
+			</attr>
+		</node>
+		<node id="dua_4">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>23</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_5">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>23</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_6">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_7">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_8">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_9">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_10">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_11">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_12">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0[]</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>19</int>
+			</attr>
+		</node>
+		<node id="dua_13">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>19</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>32</int>
+			</attr>
+		</node>
+		<node id="dua_14">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0[]</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_15">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0[]</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_16">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>23</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>12</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_17">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>23</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>32</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_18">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>12</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_19">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>32</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_20">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>12</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_21">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@0</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>26</int>
+						<int>32</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_22">
+			<type xlink:href="graphSubmission.gxl#CUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@1</string>
+			</attr>
+			<attr name="DefNode">
+				<int>0</int>
+			</attr>
+			<attr name="UseNodeDua">
+				<int>23</int>
+			</attr>
+		</node>
+		<node id="dua_23">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>19</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>23</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="dua_24">
+			<type xlink:href="graphSubmission.gxl#PUsoDua" xlink:type="simple"/>
+			<attr name="Var">
+				<string>L@2</string>
+			</attr>
+			<attr name="DefNode">
+				<int>19</int>
+			</attr>
+			<attr name="UseArcDua">
+				<seq>
+					<tup>
+						<int>12</int>
+						<int>19</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+	</graph>
+</gxl>

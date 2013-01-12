@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="build-commons" basedir="../../../">
+	<description>base build file</description>
+	<dirname property="dir.build-base" file="${ant.file.MIS}" />
+
+	<!-- propriedades gerais -->
+	<property name="dir.build" value="${dir.build-base}/build" />
+	<property name="dir.projects" value="${dir.build-base}/projects" />
+	<property name="dir.src" value="${dir.build-base}/src" />
+	<property name="dir.libs" value="${dir.build-base}/libs" />
+	<property name="dir.tmp" value="${dir.build-base}/tmp" />
+	
+	<target name="clean" description="Clean build dir">
+		<delete includeemptydirs="true">
+			<fileset dir="${dir.build}" includes="**/*" />
+		</delete>
+		<delete dir="${dir.tmp}" />
+	</target>
+	
+	<!-- limpa diretorio -->
+	<target name="clean-dir" if="available.dir">
+		<delete includeemptydirs="true">
+			<fileset dir="${dir}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+	</target>
+	
+</project>

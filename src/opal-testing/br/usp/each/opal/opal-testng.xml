@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="InSS unit Test" verbose="2">
+	<test name="Graph">
+		<packages>
+			<package name="br.usp.each.opal" />
+		</packages>
+	</test>
+	<test name="Data-flow Graph">
+		<packages>
+			<package name="br.usp.each.opal.dataflow" />
+		</packages>
+	</test>
+	<test name="GXL Reader">
+		<packages>
+			<package name="br.usp.each.opal.gxl" />
+		</packages>
+	</test>
+	<test name="Requirement">
+		<packages>
+			<package name="br.usp.each.opal.requirement" />
+		</packages>
+	</test>
+</suite>

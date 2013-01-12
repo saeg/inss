@@ -1,0 +1,10 @@
+#!/bin/sh
+
+CP=
+for i in `ls $MIS_HOME/libs/*.jar`
+do
+  CP=${CP}:${i}
+done
+
+java -cp ${CP}  \
+ br.usp.each.j2gxl.command.AllUses $*

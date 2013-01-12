@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ruleset name="mybraces" xmlns="http://pmd.sf.net/ruleset/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+	xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd">
+	<description> This ruleset checks rosys code for bad stuff </description>
+
+	<!-- include rules -->
+	<rule ref="rulesets/unusedcode.xml">
+	</rule>
+	<rule ref="rulesets/controversial.xml">
+		<exclude name="UnnecessaryConstructor" />
+		<exclude name="NullAssignment" />
+		<exclude name="OnlyOneReturn" />
+		<exclude name="SuspiciousOctalEscape" />
+		<exclude name="CallSuperInConstructor" />
+		<exclude name="UnnecessaryParentheses" />
+		<exclude name="DefaultPackage" />
+		<exclude name="DataflowAnomalyAnalysis" />
+		<exclude name="AvoidFinalLocalVariable" />
+		<exclude name="AvoidUsingShortType" />
+		<exclude name="AvoidUsingVolatile" />
+		<exclude name="AvoidUsingNativeCode" />
+		<exclude name="AvoidAccessibilityAlteration" />
+		<exclude name="DoNotCallGarbageCollectionExplicitly" />
+		<exclude name="BooleanInversion" />		
+	</rule>
+	<rule ref="rulesets/optimizations.xml">		
+		<exclude name="LocalVariableCouldBeFinal" />
+		<exclude name="MethodArgumentCouldBeFinal" />
+		<exclude name="AvoidInstantiatingObjectsInLoops" />
+		<exclude name="UseArrayListInsteadOfVector" />
+		<exclude name="SimplifyStartsWith" />
+		<exclude name="UseStringBufferForStringAppends" />
+		<exclude name="UseArraysAsList" />
+		<exclude name="AvoidArrayLoops" />
+		<exclude name="UnnecessaryWrapperObjectCreation" />
+	</rule>
+	<rule ref="rulesets/migrating.xml">
+	</rule>
+	<rule ref="rulesets/logging-java.xml">
+	</rule>
+	<rule ref="rulesets/basic.xml">
+		<exclude name="CollapsibleIfStatements" />
+	</rule>
+	<rule ref="rulesets/strings.xml">
+		<exclude name="AvoidDuplicateLiterals" />
+	</rule>
+	<rule ref="rulesets/design.xml">
+		<exclude name="AbstractClassWithoutAbstractMethod" />
+		<exclude name="AvoidReassigningParameters" />
+		<exclude name="ConfusingTernary" />
+		<exclude name="ConstructorCallsOverridableMethod" />
+		<exclude name="ImmutableField" />
+		<exclude name="MissingBreakInSwitch" />
+		<exclude name="PositionLiteralsFirstInComparisons" />
+		<exclude name="PreserveStackTrace" />
+		<exclude name="SimpleDateFormatNeedsLocale" />
+		<exclude name="SimplifyBooleanExpressions" />
+		<exclude name="SingularField" />
+		<exclude name="SwitchStmtsShouldHaveDefault" />
+		<exclude name="TooFewBranchesForASwitchStatement" />
+		<exclude name="UncommentedEmptyConstructor" />
+		<exclude name="UncommentedEmptyMethod" />
+		<exclude name="UnnecessaryLocalBeforeReturn" />
+		<exclude name="UseCollectionIsEmpty" />
+		<exclude name="UseLocaleWithCaseConversions" />
+		<exclude name="UseSingleton" />
+	</rule>
+</ruleset>

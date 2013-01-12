@@ -1,0 +1,47 @@
+<project name="MIS">
+	<description>MIS build</description>
+	
+	<import file="projects/build/commons/build.xml" />
+	<import file="commons-build.xml" />
+	<import file="inss-build.xml" />
+	<import file="opal-build.xml" />
+	<import file="j2gxl-build.xml"/>
+	
+	<property name="dir.mis.dest" value="${dir.build}/mis"/>
+		
+	<target name="clean-mis">
+	  <delete dir="${dir.mis.dest}"/>
+	</target>
+	
+	<target name="dist" depends="clean, jar-commons, jar-inss, jar-opal, jar-j2gxl" description="Build MIS project">
+		<mkdir dir="${dir.mis.dest}" />
+		<mkdir dir="${dir.mis.dest}/libs" />
+		<mkdir dir="${dir.mis.dest}/bin" />
+		<copy file="${dir.commons.jar}/${commons.jar.file}" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.inss.jar}/${inss.jar.file}" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.opal.jar}/${opal.jar.file}" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.j2gxl.jar}/${j2gxl.jar.file}" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/gxl.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/commons-cli-1.2.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/log4j-1.2.16.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/jabuti/jabuti.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/jabuti/bcel-5.2.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/whirlycache/commons-collections-3.1.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/whirlycache/commons-logging.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/whirlycache/concurrent-1.3.4.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/whirlycache/whirlycache-1.0.1.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/csv/gj-csv-1.0.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.libs}/dom4j/dom4j-1.6.1.jar" todir="${dir.mis.dest}/libs" overwrite="true" />
+		<copy file="${dir.projects}/inss/bin/instrumenter" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/inss/bin/instrumenter.bat" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/j2gxl/bin/alluses" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/j2gxl/bin/defuse" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/j2gxl/bin/alluses.bat" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/j2gxl/bin/defuse.bat" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/inss/bin/requirements" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/inss/bin/requirements.bat" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/opal/bin/allusesextractor" todir="${dir.mis.dest}/bin" overwrite="true" />
+		<copy file="${dir.projects}/opal/bin/allusesextractor.bat" todir="${dir.mis.dest}/bin" overwrite="true" />
+	</target>
+
+</project>

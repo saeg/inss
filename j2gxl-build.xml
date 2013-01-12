@@ -1,0 +1,169 @@
+<project name="J2GXL" basedir="." default="dist-j2gxl">
+	<description>J2GXL build file</description>
+	
+	<import file="projects/build/commons/build.xml" />
+	<import file="projects/build/testing/build.xml" />
+	<import file="commons-build.xml" />
+	
+	<property name="dir.j2gxl.build" value="${dir.build}/j2gxl" />
+	<property name="dir.j2gxl.src" value="${dir.src}/j2gxl" />
+	<property name="dir.j2gxl.dest" value="${dir.j2gxl.build}/classes"/>
+	<property name="dir.j2gxl.jar" value="${dir.j2gxl.build}/jar"/>
+	<property name="j2gxl.jar.file" value="j2gxl.jar"/>
+	
+	<!-- jar's j2gxl -->
+	<fileset id="set.lib.j2gxl" dir="${dir.libs}">
+		<include name="jabuti/jabuti.jar"/>
+		<include name="jabuti/bcel-5.2.jar"/>
+		<include name="gxl.jar" />
+		<include name="commons-cli-1.2.jar" />
+	</fileset>
+	
+	<path id="path.compile.j2gxl">
+		<fileset refid="set.lib.j2gxl" />
+	</path>
+	
+	<target name="clean-j2gxl" description="Clean J2GXL build dir">
+	  <delete dir="${dir.j2gxl.build}"/>
+	</target>
+	
+	<target name="compile-j2gxl" depends="compile-commons" description="Compile J2GXL">
+		<mkdir dir="${dir.j2gxl.dest}" />
+		<!-- J2GXL -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.j2gxl.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.j2gxl.src}" />
+			<classpath refid="path.compile.j2gxl" />
+			<classpath path="${dir.commons.dest}" />
+		</javac>
+		<copy file="${dir.j2gxl.src}/br/usp/each/j2gxl/gxl/template.gxl" todir="${dir.j2gxl.dest}/br/usp/each/j2gxl/gxl" overwrite="true" />
+		<copy file="${dir.j2gxl.src}/log4j.properties" todir="${dir.j2gxl.dest}" overwrite="true" />
+	</target>
+	
+	<target name="jar-j2gxl" depends="compile-j2gxl">
+		<mkdir dir="${dir.j2gxl.jar}"/>
+		<jar destfile="${dir.j2gxl.jar}/${j2gxl.jar.file}" basedir="${dir.j2gxl.dest}" />
+	</target>
+	
+	<target name="dist-j2gxl" depends="clean-j2gxl, jar-j2gxl" description="Build a jar file for J2GXL"/>
+	
+	<!-- tests targets -->
+	
+	<property name="dir.j2gxl-testing.project" value="${dir.projects}/j2gxl-testing" />
+	<property name="dir.j2gxl-testing.output" value="${dir.j2gxl-testing.project}/output" />
+	<property name="dir.j2gxl-testing.src" value="${dir.src}/j2gxl-testing" />
+	<property name="dir.j2gxl-testing.dest" value="${dir.j2gxl.build}/classes-test"/>
+	
+	<!-- jar's j2gxl testing -->
+	<fileset id="set.lib.j2gxl-testing" dir="${dir.libs}">
+		<include name="testng-5.14.jar"/>
+	</fileset>
+	
+	<path id="path.compile.j2gxl-testing">
+		<fileset refid="set.lib.j2gxl-testing" />
+	</path>
+	
+	<target name="clean-j2gxl-output">
+		<echo message="clean j2gxl output" />
+		<available file="${dir.j2gxl-testing.output}" property="available.dir" />
+		<antcall target="clean-dir">
+			<param name="dir" value="${dir.j2gxl-testing.output}" />
+		</antcall>
+		<echo message="clean j2gxl output finished" />
+	</target>
+	
+	<target name="compile-j2gxl-tests" depends="compile-j2gxl" description="Compile J2GXL Tests">
+		<mkdir dir="${dir.j2gxl-testing.dest}" />
+		<!-- J2GXL Tests -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.j2gxl-testing.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.j2gxl-testing.src}" />
+			<classpath refid="path.compile.j2gxl-testing" />
+			<classpath path="${dir.j2gxl.dest}" />
+		</javac>
+	</target>
+	
+	<target name="j2gxl-tests" depends="compile-j2gxl-tests" description="Run J2GXL Tests">
+		<testng outputDir="${dir.j2gxl-testing.output}" haltOnfailure="false" workingdir=".">
+			<classpath>
+				<path path="${dir.j2gxl.dest}"/>
+				<path path="${dir.j2gxl-testing.dest}"/>
+				<path refid="path.compile.j2gxl-testing" />
+			</classpath>
+			<xmlfileset dir="${dir.j2gxl-testing.src}/br/usp/each/j2gxl" includes="j2gxl-testng.xml" />
+		</testng>
+	</target>
+	
+	<target name="j2gxl.hudson">
+		<antcall target="clean-j2gxl-output" />
+		<antcall target="j2gxl-tests" />
+		
+		<antcall target="pmd-report">
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+			<param name="project.dir" value="${dir.j2gxl-testing.project}" />
+			<param name="source.dir" value="${dir.j2gxl.src}" />
+		</antcall>
+		
+		<antcall target="findbugs-report">
+			<param name="bin.dir" value="${dir.j2gxl.dest}" />
+			<param name="project.dir" value="${dir.j2gxl-testing.project}" />
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+		</antcall>
+	</target>
+	
+	<!-- Coverage -->
+				
+	<property name="dir.j2gxl.instr.emma" value="${dir.j2gxl.build}/instr-classes-emma" />
+	
+	<target name="j2gxl.emma.report" depends="compile-j2gxl, compile-j2gxl-tests">
+		<antcall target="emma.instrumentation">
+			<param name="instr.dir" value="${dir.j2gxl.instr.emma}" />
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+			<param name="bin.dir" value="${dir.j2gxl.dest}" />
+		</antcall>
+		
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.j2gxl-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.emma" />
+				<path path="${dir.j2gxl.instr.emma}" />
+				<path path="${dir.j2gxl-testing.dest}" />
+				<path refid="path.compile.j2gxl-testing" />
+			</classpath>
+			<jvmarg value="-Demma.coverage.out.file=${dir.j2gxl-testing.output}/metadata.emma" />
+			<jvmarg value="-Demma.coverage.out.merge=true" />
+			<xmlfileset dir="${dir.j2gxl-testing.src}/br/usp/each/j2gxl" includes="j2gxl-testng.xml" />
+		</testng>
+		
+		<antcall target="emma-report">
+			<param name="source.dir" value="${dir.j2gxl.src}" />
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+		</antcall>
+	</target>
+	
+	<property name="dir.j2gxl.instr.cobertura" value="${dir.j2gxl.build}/instr-classes-cobertura" />
+	
+	<target name="j2gxl.cobertura.report" depends="compile-j2gxl, compile-j2gxl-tests">
+		<antcall target="cobertura.instrumentation">
+			<param name="instr.dir" value="${dir.j2gxl.instr.cobertura}" />
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+			<param name="bin.dir" value="${dir.j2gxl.dest}" />
+		</antcall>
+		
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.j2gxl-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.cobertura" />
+				<path path="${dir.j2gxl.instr.cobertura}" />
+				<path path="${dir.j2gxl-testing.dest}" />
+				<path refid="path.compile.j2gxl-testing" />
+			</classpath>
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${dir.j2gxl-testing.output}/cobertura.ser" />
+			<xmlfileset dir="${dir.j2gxl-testing.src}/br/usp/each/j2gxl" includes="j2gxl-testng.xml" />
+		</testng>
+		
+		<antcall target="cobertura-report">
+			<param name="source.dir" value="${dir.j2gxl.src}" />
+			<param name="output.dir" value="${dir.j2gxl-testing.output}" />
+		</antcall>
+	</target>
+	
+</project>

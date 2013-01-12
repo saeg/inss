@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="InSS unit Test" verbose="2">
+	<test name="InSS Core">
+		<packages>
+			<package name="br.usp.each.inss" />
+		</packages>
+	</test>
+	<test name="Trace">
+		<packages>
+			<package name="br.usp.each.inss.trace" />
+		</packages>
+	</test>
+	<test name="Cache">
+		<packages>
+			<package name="br.usp.each.inss.cache" />
+		</packages>
+	</test>
+	<test name="Node Instrumentation">
+		<packages>
+			<package name="br.usp.each.inss.instrumentation.node" />
+		</packages>
+	</test>
+	<test name="Edge Instrumentation">
+		<packages>
+			<package name="br.usp.each.inss.instrumentation.edge" />
+		</packages>
+	</test>
+	<test name="Dua Instrumentation">
+		<classes>
+			<class name="br.usp.each.inss.instrumentation.dua.TestNextOddProgramFactory" />
+			<class name="br.usp.each.inss.instrumentation.dua.TestMaxProgramFactory" />
+			<class name="br.usp.each.inss.instrumentation.dua.TestForgottenSleepyDuasFactory" />
+		</classes>
+	</test>
+</suite>

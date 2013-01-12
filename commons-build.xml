@@ -1,0 +1,41 @@
+<project name="Commons" basedir="." default="dist-commons">
+	<description>Commons build file</description>
+	
+	<import file="projects/build/commons/build.xml" />
+	
+	<property name="dir.commons.build" value="${dir.build}/commons" />
+	<property name="dir.commons.src" value="${dir.src}/commons" />
+	<property name="dir.commons.dest" value="${dir.commons.build}/classes"/>
+	<property name="dir.commons.jar" value="${dir.commons.build}/jar"/>
+	<property name="commons.jar.file" value="commons.jar"/>
+	
+	<!-- jar's commons -->
+	<fileset id="set.lib.commons" dir="${dir.libs}">
+		<include name="log4j-1.2.16.jar" />
+	</fileset>
+	
+	<path id="path.compile.commons">
+		<fileset refid="set.lib.commons" />
+	</path>
+	
+	<target name="clean-commons" description="Clean Commons build dir">
+	  <delete dir="${dir.commons.build}"/>
+	</target>
+	
+	<target name="compile-commons" description="Compile Commons">
+		<mkdir dir="${dir.commons.dest}" />
+		<!-- Commons -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.commons.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.commons.src}" />
+			<classpath refid="path.compile.commons" />
+		</javac>
+	</target>
+	
+	<target name="jar-commons" depends="compile-commons">
+		<mkdir dir="${dir.commons.jar}"/>
+		<jar destfile="${dir.commons.jar}/${commons.jar.file}" basedir="${dir.commons.dest}" />
+	</target>
+	
+	<target name="dist-commons" depends="clean-commons, jar-commons" description="Build a jar file for Commons"/>
+
+</project>

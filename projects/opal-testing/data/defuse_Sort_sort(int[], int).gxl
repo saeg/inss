@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+	<graph edgeids="true" edgemode="directed" hypergraph="false" id="sort">
+		<type xlink:href="graphDefUse.gxl#graphDefUse" xlink:type="simple"/>
+		<node id="v1">
+			<type xlink:href="graphDefUse.gxl#Vars" xlink:type="simple"/>
+			<attr name="Var">
+				<seq>
+					<tup>
+						<string>L@0</string>
+						<int>0</int>
+					</tup>
+					<tup>
+						<string>L@1</string>
+						<int>1</int>
+					</tup>
+					<tup>
+						<string>L@1[]</string>
+						<int>2</int>
+					</tup>
+					<tup>
+						<string>L@2</string>
+						<int>3</int>
+					</tup>
+					<tup>
+						<string>L@3</string>
+						<int>4</int>
+					</tup>
+					<tup>
+						<string>L@4</string>
+						<int>5</int>
+					</tup>
+					<tup>
+						<string>L@5</string>
+						<int>6</int>
+					</tup>
+					<tup>
+						<string>L@6</string>
+						<int>7</int>
+					</tup>
+				</seq>
+			</attr>
+		</node>
+		<node id="0">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set>
+					<string>5</string>
+					<string>4</string>
+					<string>1</string>
+					<string>0</string>
+					<string>3</string>
+				</set>
+			</attr>
+			<attr name="CUse">
+				<set/>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="0" id="prim_from_ 0_to_ 5" to="5">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set/>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="5">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set/>
+			</attr>
+			<attr name="CUse">
+				<set/>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="5" id="prim_from_ 5_to_ 10" to="10">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>
+					<string>3</string>
+					<string>4</string>
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<edge from="5" id="prim_from_ 5_to_ 73" to="73">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>
+					<string>3</string>
+					<string>4</string>
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="10">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set>
+					<string>7</string>
+					<string>6</string>
+				</set>
+			</attr>
+			<attr name="CUse">
+				<set>
+					<string>2</string>
+					<string>4</string>
+					<string>1</string>
+				</set>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="10" id="prim_from_ 10_to_ 20" to="20">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set/>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="20">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set/>
+			</attr>
+			<attr name="CUse">
+				<set/>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="20" id="prim_from_ 20_to_ 26" to="26">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>
+					<string>7</string>
+					<string>3</string>
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<edge from="20" id="prim_from_ 20_to_ 51" to="51">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>
+					<string>7</string>
+					<string>3</string>
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="26">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set/>
+			</attr>
+			<attr name="CUse">
+				<set>
+					<string>6</string>
+					<string>2</string>
+					<string>7</string>
+					<string>1</string>
+				</set>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="26" id="prim_from_ 26_to_ 35" to="35">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>					 
+					<string>7</string>
+					<string>6</string>
+					<string>1</string>
+					<string>2</string>					 
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<edge from="26" id="prim_from_ 26_to_ 45" to="45">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set>					 
+					<string>7</string>
+					<string>6</string>
+					<string>1</string>
+					<string>2</string>					 
+				</set>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="35">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set>
+					<string>5</string>
+					<string>6</string>
+				</set>
+			</attr>
+			<attr name="CUse">
+				<set>
+					<string>2</string>
+					<string>7</string>
+					<string>1</string>
+				</set>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="35" id="prim_from_ 35_to_ 45" to="45">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set/>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="45">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set>
+					<string>7</string>
+				</set>
+			</attr>
+			<attr name="CUse">
+				<set>
+					<string>7</string>
+				</set>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="45" id="prim_from_ 45_to_ 20" to="20">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set/>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="51">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set>
+					<string>4</string>
+					<string>2</string>
+					<string>7</string>
+				</set>
+			</attr>
+			<attr name="CUse">
+				<set>
+					<string>5</string>
+					<string>6</string>
+					<string>2</string>
+					<string>4</string>
+					<string>1</string>
+				</set>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+		<edge from="51" id="prim_from_ 51_to_ 5" to="5">
+			<type xlink:href="graphDefUse.gxl#Edge" xlink:type="simple"/>
+			<attr name="PUse">
+				<set/>
+			</attr>
+			<attr name="Unconstrained">
+				<bool>true</bool>
+			</attr>
+		</edge>
+		<node id="73">
+			<type xlink:href="graphDefUse.gxl#Node" xlink:type="simple"/>
+			<attr name="Def">
+				<set/>
+			</attr>
+			<attr name="CUse">
+				<set/>
+			</attr>
+			<attr name="Undef">
+				<set/>
+			</attr>
+		</node>
+	</graph>
+</gxl>

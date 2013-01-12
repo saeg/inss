@@ -1,0 +1,171 @@
+<project name="OPAL" basedir="." default="dist-opal">
+	<description>OPAL build file</description>
+	
+	<import file="projects/build/commons/build.xml" />
+	<import file="projects/build/testing/build.xml" />
+	<import file="j2gxl-build.xml" />
+	
+	<property name="dir.opal.build" value="${dir.build}/opal" />
+	<property name="dir.opal.src" value="${dir.src}/opal" />
+	<property name="dir.opal.dest" value="${dir.opal.build}/classes"/>
+	<property name="dir.opal.jar" value="${dir.opal.build}/jar"/>
+	<property name="opal.jar.file" value="opal.jar"/>
+	
+	<!-- jar's opal -->
+	<fileset id="set.lib.opal" dir="${dir.libs}">
+		<include name="gxl.jar" />
+		<include name="commons-cli-1.2.jar"/>
+		<include name="log4j-1.2.16.jar" />
+	</fileset>
+		
+	<path id="path.compile.opal">
+		<fileset refid="set.lib.opal" />
+	</path>
+	
+	<target name="clean-opal" description="Clean OPAL build dir">
+	  <delete dir="${dir.opal.build}"/>
+	</target>
+	
+	<target name="compile-opal" depends="compile-commons, compile-j2gxl" description="Compile OPAL">
+		<mkdir dir="${dir.opal.dest}" />
+		<!-- OPAL -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.opal.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.opal.src}" />
+			<classpath refid="path.compile.opal" />
+			<classpath path="${dir.j2gxl.dest}" />
+			<classpath path="${dir.commons.dest}" />
+		</javac>
+	</target>
+	
+	<target name="jar-opal" depends="compile-opal">
+		<mkdir dir="${dir.opal.jar}"/>
+		<jar destfile="${dir.opal.jar}/${opal.jar.file}" basedir="${dir.opal.dest}" />
+	</target>
+
+	<target name="dist-opal" depends="clean-opal, jar-opal" description="Build a jar file for OPAL"/>
+	
+	<!-- tests targets -->
+	
+	<property name="dir.opal-testing.project" value="${dir.projects}/opal-testing" />
+	<property name="dir.opal-testing.output" value="${dir.opal-testing.project}/output" />
+	<property name="dir.opal-testing.src" value="${dir.src}/opal-testing" />
+	<property name="dir.opal-testing.dest" value="${dir.opal.build}/classes-test"/>
+	
+	<!-- jar's opal testing -->
+	<fileset id="set.lib.opal-testing" dir="${dir.libs}">
+		<include name="gxl.jar" />
+		<include name="testng-5.14.jar" />
+	</fileset>
+	
+	<path id="path.compile.opal-testing">
+		<fileset refid="set.lib.opal-testing" />
+	</path>
+	
+	<target name="clean-opal-output">
+		<echo message="clean opal output" />
+		<available file="${dir.opal-testing.output}" property="available.dir" />
+		<antcall target="clean-dir">
+			<param name="dir" value="${dir.opal-testing.output}" />
+		</antcall>
+		<echo message="clean opal output finished" />
+	</target>
+	
+	<target name="compile-opal-tests" depends="compile-opal" description="Compile OPAL Tests">
+		<mkdir dir="${dir.opal-testing.dest}" />
+		<!-- OPAL Tests -->
+		<javac debug="true" encoding="ISO-8859-1" debuglevel="lines,source" destdir="${dir.opal-testing.dest}" fork="true" memoryinitialsize="128m" memorymaximumsize="256m" includeantruntime="false">
+			<src path="${dir.opal-testing.src}" />
+			<classpath refid="path.compile.opal-testing" />
+			<classpath path="${dir.opal.dest}" />
+		</javac>
+	</target>
+	
+	<target name="opal-tests" depends="compile-opal-tests" description="Run OPAL Tests">
+		<testng outputDir="${dir.opal-testing.output}" haltOnfailure="false" workingdir=".">
+			<classpath>
+				<path path="${dir.opal.dest}"/>
+				<path path="${dir.opal-testing.dest}"/>
+				<path refid="path.compile.opal-testing" />
+				<path path="${dir.j2gxl.dest}"/>
+			</classpath>
+			<xmlfileset dir="${dir.opal-testing.src}/br/usp/each/opal" includes="opal-testng.xml" />
+		</testng>
+	</target>
+	
+	<target name="opal.hudson">
+		<antcall target="clean-opal-output" />
+		<antcall target="opal-tests" />
+		
+		<antcall target="pmd-report">
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+			<param name="project.dir" value="${dir.opal-testing.project}" />
+			<param name="source.dir" value="${dir.opal.src}" />
+		</antcall>
+		
+		<antcall target="findbugs-report">
+			<param name="bin.dir" value="${dir.opal.dest}" />
+			<param name="project.dir" value="${dir.opal-testing.project}" />
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+		</antcall>
+	</target>
+	
+	<!-- Coverage -->
+				
+	<property name="dir.opal.instr.emma" value="${dir.opal.build}/instr-classes-emma" />
+	
+	<target name="opal.emma.report" depends="compile-opal, compile-opal-tests">
+		<antcall target="emma.instrumentation">
+			<param name="instr.dir" value="${dir.opal.instr.emma}" />
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+			<param name="bin.dir" value="${dir.opal.dest}" />
+		</antcall>
+		
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.opal-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.emma" />
+				<path path="${dir.opal.instr.emma}" />
+				<path path="${dir.opal-testing.dest}" />
+				<path refid="path.compile.opal-testing" />
+				<path path="${dir.j2gxl.dest}"/>
+			</classpath>
+			<jvmarg value="-Demma.coverage.out.file=${dir.opal-testing.output}/metadata.emma" />
+			<jvmarg value="-Demma.coverage.out.merge=true" />
+			<xmlfileset dir="${dir.opal-testing.src}/br/usp/each/opal" includes="opal-testng.xml" />
+		</testng>
+		
+		<antcall target="emma-report">
+			<param name="source.dir" value="${dir.opal.src}" />
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+		</antcall>
+	</target>
+	
+	<property name="dir.opal.instr.cobertura" value="${dir.opal.build}/instr-classes-cobertura" />
+	
+	<target name="opal.cobertura.report" depends="compile-opal, compile-opal-tests">
+		<antcall target="cobertura.instrumentation">
+			<param name="instr.dir" value="${dir.opal.instr.cobertura}" />
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+			<param name="bin.dir" value="${dir.opal.dest}" />
+		</antcall>
+		
+		<echo message="running tests with instrumented classes" />
+		<testng outputDir="${dir.opal-testing.output}" haltOnfailure="true" workingdir=".">
+			<classpath>
+				<fileset refid="set.lib.cobertura" />
+				<path path="${dir.opal.instr.cobertura}" />
+				<path path="${dir.opal-testing.dest}" />
+				<path refid="path.compile.opal-testing" />
+				<path path="${dir.j2gxl.dest}"/>
+			</classpath>
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${dir.opal-testing.output}/cobertura.ser" />
+			<xmlfileset dir="${dir.opal-testing.src}/br/usp/each/opal" includes="opal-testng.xml" />
+		</testng>
+		
+		<antcall target="cobertura-report">
+			<param name="source.dir" value="${dir.opal.src}" />
+			<param name="output.dir" value="${dir.opal-testing.output}" />
+		</antcall>
+	</target>
+	
+</project>
