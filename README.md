@@ -48,3 +48,7 @@ Para instalar no Windows:
    Lembrando que o diretório deve corresponder ao diretório onde você copiou a pasta 'mis'
 
 6: Para facilitar o uso dos scripts adicione a pasta 'bin'ao PATH do sistema
+
+---
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/c3a7086e16115f7d3c7154d193aa7c25 "githalytics.com")](http://githalytics.com/saeg/inss)
